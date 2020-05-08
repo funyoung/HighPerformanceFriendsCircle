@@ -6,6 +6,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.widget.ImageView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
@@ -16,8 +17,11 @@ import com.kcrason.highperformancefriendscircle.others.DataCenter;
 import com.kcrason.highperformancefriendscircle.others.FriendsCircleAdapterDivideLine;
 import com.kcrason.highperformancefriendscircle.others.GlideSimpleTarget;
 import com.kcrason.highperformancefriendscircle.utils.Utils;
-import com.kcrason.highperformancefriendscircle.widgets.EmojiPanelView;
+import com.kcrason.highperformancefriendscircle.widgets.CommentPanelView;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import ch.ielse.view.imagewatcher.ImageWatcher;
 import io.reactivex.Single;
 import io.reactivex.SingleOnSubscribe;
@@ -25,37 +29,36 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class MainActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener,
+public class MainActivity extends AppCompatActivity implements
         OnPraiseOrCommentClickListener, ImageWatcher.OnPictureLongPressListener, ImageWatcher.Loader {
 
-    private SwipeRefreshLayout mSwipeRefreshLayout;
     private Disposable mDisposable;
+
     private FriendCircleAdapter mFriendCircleAdapter;
-    private ImageWatcher mImageWatcher;
-    private EmojiPanelView mEmojiPanelView;
+
+    @BindView(R.id.recycler_view) RecyclerView recyclerView;
+    @BindView(R.id.image_watcher) ImageWatcher imageWatcher;
+    @BindView(R.id.emoji_panel_view) CommentPanelView commentPanelView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mEmojiPanelView = findViewById(R.id.emoji_panel_view);
-        mEmojiPanelView.initEmojiPanel(DataCenter.emojiDataSources);
-        mSwipeRefreshLayout = findViewById(R.id.swpie_refresh_layout);
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        mSwipeRefreshLayout.setOnRefreshListener(this);
 
-//        findViewById(R.id.img_back).setOnClickListener(v ->
-//                startActivity(new Intent(MainActivity.this, EmojiPanelActivity.class)));
+        ButterKnife.bind(this, this);
 
+        commentPanelView.initEmojiPanel(DataCenter.emojiDataSources);
+        configRecyclerView(recyclerView, imageWatcher);
+
+        Utils.showSwipeRefreshLayout(this::asyncMakeData);
+    }
+
+    private void configRecyclerView(RecyclerView recyclerView, ImageWatcher imageWatcher) {
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    Glide.with(MainActivity.this).resumeRequests();
-                } else {
-                    Glide.with(MainActivity.this).pauseRequests();
-                }
+                updateScrolledUi(newState == RecyclerView.SCROLL_STATE_IDLE);
             }
 
             @Override
@@ -63,16 +66,24 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                 super.onScrolled(recyclerView, dx, dy);
             }
         });
-        mImageWatcher = findViewById(R.id.image_watcher);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new FriendsCircleAdapterDivideLine());
-        mFriendCircleAdapter = new FriendCircleAdapter(this, recyclerView, mImageWatcher);
+        mFriendCircleAdapter = new FriendCircleAdapter(this, recyclerView, imageWatcher);
         recyclerView.setAdapter(mFriendCircleAdapter);
-        mImageWatcher.setTranslucentStatus(Utils.calcStatusBarHeight(this));
-        mImageWatcher.setErrorImageRes(R.mipmap.error_picture);
-        mImageWatcher.setOnPictureLongPressListener(this);
-        mImageWatcher.setLoader(this);
-        Utils.showSwipeRefreshLayout(mSwipeRefreshLayout, this::asyncMakeData);
+
+        imageWatcher.setTranslucentStatus(Utils.calcStatusBarHeight(this));
+        imageWatcher.setErrorImageRes(R.mipmap.error_picture);
+        imageWatcher.setOnPictureLongPressListener(this);
+        imageWatcher.setLoader(this);
+    }
+
+    private void updateScrolledUi(boolean idle) {
+        if (idle) {
+            Glide.with(this).resumeRequests();
+        } else {
+            Glide.with(this).pauseRequests();
+        }
     }
 
 
@@ -82,7 +93,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((friendCircleBeans, throwable) -> {
-                    Utils.hideSwipeRefreshLayout(mSwipeRefreshLayout);
                     if (friendCircleBeans != null && throwable == null) {
                         mFriendCircleAdapter.setFriendCircleBeans(friendCircleBeans);
                     }
@@ -98,10 +108,6 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
         }
     }
 
-    @Override
-    public void onRefresh() {
-        asyncMakeData();
-    }
 
     @Override
     public void onPraiseClick(int position) {
@@ -111,12 +117,12 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
     @Override
     public void onCommentClick(int position) {
 //        Toast.makeText(this, "you click comment", Toast.LENGTH_SHORT).show();
-        mEmojiPanelView.showEmojiPanel();
+        commentPanelView.showEmojiPanel();
     }
 
     @Override
     public void onBackPressed() {
-        if (!mImageWatcher.handleBackPressed()) {
+        if (!imageWatcher.handleBackPressed()) {
             super.onBackPressed();
         }
     }

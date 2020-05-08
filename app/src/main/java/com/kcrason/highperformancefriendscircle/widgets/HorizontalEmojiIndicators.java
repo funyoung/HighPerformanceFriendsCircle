@@ -34,7 +34,7 @@ public class HorizontalEmojiIndicators extends LinearLayout implements ViewPager
     /**
      * 表情面板View
      */
-    private EmojiPanelView mEmojiPanelView;
+    private CommentPanelView mEmojiPanelView;
 
     /**
      * 显示表情的adapter
@@ -105,7 +105,7 @@ public class HorizontalEmojiIndicators extends LinearLayout implements ViewPager
     }
 
 
-    public HorizontalEmojiIndicators setEmojiPanelView(EmojiPanelView emojiPanelView) {
+    public HorizontalEmojiIndicators setEmojiPanelView(CommentPanelView emojiPanelView) {
         mEmojiPanelView = emojiPanelView;
         return this;
     }
@@ -346,8 +346,8 @@ public class HorizontalEmojiIndicators extends LinearLayout implements ViewPager
         imageView.setBackgroundColor(index == 0 ? ContextCompat.getColor(getContext(), R.color.base_DCDCDC) : ContextCompat.getColor(getContext(), R.color.base_FFFFFF));
         int padding = Utils.dp2px(8f);
         imageView.setPadding(padding, padding, padding, padding);
-        if (mPagerAdapter instanceof EmojiPanelView.EmojiPanelPagerAdapter) {
-            imageView.setImageDrawable(((EmojiPanelView.EmojiPanelPagerAdapter) mPagerAdapter).getDrawable(index));
+        if (mPagerAdapter instanceof CommentPanelView.EmojiPanelPagerAdapter) {
+            imageView.setImageDrawable(((CommentPanelView.EmojiPanelPagerAdapter) mPagerAdapter).getDrawable(index));
         }
         return imageView;
     }

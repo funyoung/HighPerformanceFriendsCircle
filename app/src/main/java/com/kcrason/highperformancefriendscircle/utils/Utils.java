@@ -60,24 +60,13 @@ public class Utils {
     }
 
 
-    public static void showSwipeRefreshLayout(SwipeRefreshLayout swipeRefreshLayout, OnStartSwipeRefreshListener onStartSwipeRefreshListener) {
-        if (swipeRefreshLayout != null) {
-            swipeRefreshLayout.post(() -> {
-                swipeRefreshLayout.setRefreshing(true);
-                Single.timer(200, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
-                        .subscribe(aLong -> {
-                            if (onStartSwipeRefreshListener != null) {
-                                onStartSwipeRefreshListener.onStartRefresh();
-                            }
-                        });
-            });
-        }
-    }
-
-    public static void hideSwipeRefreshLayout(SwipeRefreshLayout swipeRefreshLayout) {
-        if (swipeRefreshLayout != null) {
-            swipeRefreshLayout.post(() -> swipeRefreshLayout.setRefreshing(false));
-        }
+    public static void showSwipeRefreshLayout(OnStartSwipeRefreshListener onStartSwipeRefreshListener) {
+        Single.timer(10, TimeUnit.MILLISECONDS, AndroidSchedulers.mainThread())
+                .subscribe(aLong -> {
+                    if (onStartSwipeRefreshListener != null) {
+                        onStartSwipeRefreshListener.onStartRefresh();
+                    }
+                });
     }
 
     public static void showPopupMenu(Context context, OnItemClickPopupMenuListener onItemClickPopupMenuListener,

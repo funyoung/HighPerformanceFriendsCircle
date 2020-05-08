@@ -44,7 +44,7 @@ import io.reactivex.SingleOnSubscribe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class EmojiPanelView extends LinearLayout implements OnKeyBoardStateListener {
+public class CommentPanelView extends LinearLayout implements OnKeyBoardStateListener {
 
     private ViewPager mViewPager;
 
@@ -69,17 +69,17 @@ public class EmojiPanelView extends LinearLayout implements OnKeyBoardStateListe
     private boolean isKeyBoardShow;
     private boolean isInitComplete;
 
-    public EmojiPanelView(Context context) {
+    public CommentPanelView(Context context) {
         super(context);
         init();
     }
 
-    public EmojiPanelView(Context context, @Nullable AttributeSet attrs) {
+    public CommentPanelView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public EmojiPanelView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public CommentPanelView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }

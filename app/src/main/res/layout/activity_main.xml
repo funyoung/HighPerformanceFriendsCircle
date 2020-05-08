@@ -12,18 +12,11 @@
 
         <include layout="@layout/include_title_bar_view" />
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swpie_refresh_layout"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/base_DCDCDC" />
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+            android:layout_height="match_parent"
+            android:background="@color/base_DCDCDC" />
 
 
     </LinearLayout>
@@ -34,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <com.kcrason.highperformancefriendscircle.widgets.EmojiPanelView
+    <com.kcrason.highperformancefriendscircle.widgets.CommentPanelView
         android:id="@+id/emoji_panel_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
