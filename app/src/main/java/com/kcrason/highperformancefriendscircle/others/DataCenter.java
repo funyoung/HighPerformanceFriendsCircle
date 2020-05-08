@@ -76,7 +76,7 @@ public class DataCenter {
 
             UserBean userBean = new UserBean();
             userBean.setUserName(Constants.USER_NAME[(int) (Math.random() * 30)]);
-            userBean.setUserAvatarUrl(Constants.IMAGE_URL[(int) (Math.random() * 50)]);
+            userBean.setUserAvatarUrl("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1588931838505&di=80343c9fc5f894c801c8bfe76080809a&imgtype=0&src=http%3A%2F%2F01.minipic.eastday.com%2F20170319%2F20170319000016_0d58c8f901682ca78d62ee887d5b07cc_6.jpeg");
             friendCircleBean.setUserBean(userBean);
 
 
@@ -104,7 +104,7 @@ public class DataCenter {
             randomCount = randomCount + 1;
         }
         for (int i = 0; i < randomCount; i++) {
-            imageBeans.add(Constants.IMAGE_URL[(int) (Math.random() * 50)]);
+            imageBeans.add("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1588931838505&di=80343c9fc5f894c801c8bfe76080809a&imgtype=0&src=http%3A%2F%2F01.minipic.eastday.com%2F20170319%2F20170319000016_0d58c8f901682ca78d62ee887d5b07cc_6.jpeg");
         }
         return imageBeans;
     }
