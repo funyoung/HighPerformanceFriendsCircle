@@ -3,12 +3,11 @@ package com.kcrason.highperformancefriendscircle.utils;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Paint;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.PopupMenu;
 
-import com.kcrason.highperformancefriendscircle.FriendsCircleApplication;
+import com.kcrason.highperformancefriendscircle.App;
 import com.kcrason.highperformancefriendscircle.R;
 import com.kcrason.highperformancefriendscircle.enums.TranslationState;
 import com.kcrason.highperformancefriendscircle.interfaces.OnItemClickPopupMenuListener;
@@ -26,15 +25,15 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 public class Utils {
 
     public static int dp2px(float dpValue) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpValue, FriendsCircleApplication.sContext.getResources().getDisplayMetrics());
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpValue, App.sContext.getResources().getDisplayMetrics());
     }
 
     public static int getScreenWidth() {
-        return FriendsCircleApplication.sContext.getResources().getDisplayMetrics().widthPixels;
+        return App.sContext.getResources().getDisplayMetrics().widthPixels;
     }
 
     public static int getScreenHeight(){
-        return FriendsCircleApplication.sContext.getResources().getDisplayMetrics().heightPixels;
+        return App.sContext.getResources().getDisplayMetrics().heightPixels;
     }
 
     public static int calcStatusBarHeight(Context context) {

@@ -2,13 +2,13 @@ package com.kcrason.highperformancefriendscircle;
 
 import android.content.Context;
 import android.os.Bundle;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import android.widget.ImageView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.widget.ImageView;
-import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.kcrason.highperformancefriendscircle.adapters.FriendCircleAdapter;
 import com.kcrason.highperformancefriendscircle.beans.FriendCircleBean;
@@ -18,6 +18,7 @@ import com.kcrason.highperformancefriendscircle.others.FriendsCircleAdapterDivid
 import com.kcrason.highperformancefriendscircle.others.GlideSimpleTarget;
 import com.kcrason.highperformancefriendscircle.utils.Utils;
 import com.kcrason.highperformancefriendscircle.widgets.CommentPanelView;
+
 import java.util.List;
 
 import butterknife.BindView;

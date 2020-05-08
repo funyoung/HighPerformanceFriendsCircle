@@ -9,7 +9,7 @@ import com.kcrason.highperformancefriendscircle.others.DataCenter;
  * @author KCrason
  * @date 2018/5/3
  */
-public class FriendsCircleApplication extends Application {
+public class App extends Application {
 
     public static Context sContext;
 
