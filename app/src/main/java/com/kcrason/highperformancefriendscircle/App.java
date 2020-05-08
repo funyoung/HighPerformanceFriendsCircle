@@ -11,12 +11,13 @@ import com.kcrason.highperformancefriendscircle.others.DataCenter;
  */
 public class App extends Application {
 
-    public static Context sContext;
+    public static Context context;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        sContext = getApplicationContext();
+        context = getApplicationContext();
+
         DataCenter.init();
     }
 }

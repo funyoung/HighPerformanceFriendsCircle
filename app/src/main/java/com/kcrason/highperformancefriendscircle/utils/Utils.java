@@ -25,15 +25,15 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 public class Utils {
 
     public static int dp2px(float dpValue) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpValue, App.sContext.getResources().getDisplayMetrics());
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpValue, App.context.getResources().getDisplayMetrics());
     }
 
     public static int getScreenWidth() {
-        return App.sContext.getResources().getDisplayMetrics().widthPixels;
+        return App.context.getResources().getDisplayMetrics().widthPixels;
     }
 
     public static int getScreenHeight(){
-        return App.sContext.getResources().getDisplayMetrics().heightPixels;
+        return App.context.getResources().getDisplayMetrics().heightPixels;
     }
 
     public static int calcStatusBarHeight(Context context) {

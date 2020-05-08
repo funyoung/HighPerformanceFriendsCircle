@@ -51,7 +51,8 @@ public class MainActivity extends AppCompatActivity implements
         commentPanelView.initEmojiPanel(DataCenter.emojiDataSources);
         configRecyclerView(recyclerView, imageWatcher);
 
-        Utils.showSwipeRefreshLayout(this::asyncMakeData);
+//        Utils.showSwipeRefreshLayout(this::asyncMakeData);
+        asyncMakeData();
     }
 
     private void configRecyclerView(RecyclerView recyclerView, ImageWatcher imageWatcher) {
